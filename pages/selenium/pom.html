@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+<body>
+    <div class="container details-container">
+        <details>
+            <summary>Page Object Model</summary>
+            <div class="contetn">
+                <h3 id="page-object-model--">Page Object Model -</h3>
+<p>The Page Object Model (POM) is a design pattern in Selenium for enhancing test maintenance and reducing code duplication. It represents web pages as classes, where each class contains web elements and methods to interact with those elements. When used with TestNG, POM helps organize test cases and manage test execution efficiently.</p>
+<h3 id="key-components-of-pom">Key Components of POM</h3>
+<ol>
+<li><p><strong>Page Class</strong>: Represents a web page and contains web elements and methods to interact with them.</p>
+</li>
+<li><p><strong>Test Class</strong>: Contains the actual test methods, utilizing the page classes to perform actions.</p>
+</li>
+</ol>
+<h3 id="advantages-of-pom">Advantages of POM</h3>
+<ul>
+<li><p><strong>Improved Readability</strong>: Tests become more readable and understandable.</p>
+</li>
+<li><p><strong>Reusability</strong>: Methods in page classes can be reused across multiple tests.</p>
+</li>
+<li><p><strong>Maintainability</strong>: Changes in the UI need to be updated only in one place, the page class.</p>
+</li>
+</ul>
+<h3 id="example-structure">Example Structure</h3>
+<ol>
+<li><p><strong>Base Class</strong>: Contains common setup and teardown methods.</p>
+</li>
+<li><p><strong>Page Classes</strong>: Represent different web pages.</p>
+</li>
+<li><p><strong>Test Classes</strong>: Contain test methods.</p>
+</li>
+</ol>
+
+            </div>
+        </details>
+        <details>
+            <summary>Page Factory</summary>
+            <div class="content">
+                <h2 id="page-factory--">Page Factory -</h2>
+                <p>Page Factory is a class in Selenium that supports the Page Object
+                    Model (POM) design pattern by
+                    providing a way to initialize web elements defined in Page Objects.
+                    It makes the code more
+                    readable and easier to maintain by automatically initializing web
+                    elements at runtime using the
+                    <code>@FindBy</code> annotation.
+                </p>
+                <h3 id="key-components-of-page-factory">Key Components of Page Factory
+                </h3>
+                <ol>
+                    <li><strong>Page Class</strong>: Represents a web page and contains
+                        web elements annotated with
+                        <code>@FindBy</code>.
+                    </li>
+                    <li><strong>PageFactory Class</strong>: Contains the
+                        <code>initElements</code> method to
+                        initialize the web elements.
+                    </li>
+                </ol>
+                <h3 id="example-structure">Example Structure</h3>
+                <ol>
+                    <li><strong>Base Class</strong>: Contains common setup and teardown
+                        methods.</li>
+                    <li><strong>Page Classes</strong>: Represent different web pages and
+                        use <code>@FindBy</code>
+                        for web elements.</li>
+                    <li><strong>Test Classes</strong>: Contain test methods that utilize
+                        the page classes</li>
+                </ol>
+                <h3 id="methods-in-pagefactory">Methods in PageFactory</h3>
+                <ol>
+                    <li>
+                        <p><strong>PageFactory.initElements(WebDriver driver, Object
+                                page)</strong>:</p>
+                        <ul>
+                            <li>Initializes the elements of the given page object.</li>
+                            <li>Automatically locates the elements defined by the
+                                <code>@FindBy</code> annotation.
+                            </li>
+                        </ul>
+                        <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">PageFactory</span><span class="token punctuation">.</span><span class="token function">initElements</span><span class="token punctuation">(</span>driver<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                    </li>
+                </ol>
+                <h3 id="annotations-in-pagefactory">Annotations in PageFactory</h3>
+                <ol>
+                    <li>
+                        <p><strong>@FindBy</strong>:</p>
+                        <ul>
+                            <li>Used to locate elements using different strategies (id,
+                                name, className, xpath,
+                                etc.).</li>
+                        </ul>
+                        <pre class="language-java" tabindex="0"><code class="language-java"><span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"username"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">WebElement</span> usernameField<span class="token punctuation">;</span>
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong>@FindBys</strong>:</p>
+                        <ul>
+                            <li>Used to locate elements using multiple criteria (AND
+                                condition).</li>
+                        </ul>
+                        <pre class="language-java" tabindex="0"><code class="language-java"><span class="token annotation punctuation">@FindBys</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+<span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>className <span class="token operator">=</span> <span class="token string">"class1"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>className <span class="token operator">=</span> <span class="token string">"class2"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">WebElement</span> element<span class="token punctuation">;</span>
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong>@FindAll</strong>:</p>
+                        <ul>
+                            <li>Used to locate elements using multiple criteria (OR
+                                condition).</li>
+                        </ul>
+                        <pre class="language-java" tabindex="0"><code class="language-java"><span class="token annotation punctuation">@FindAll</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+<span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"username"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">WebElement</span> usernameField<span class="token punctuation">;</span>
+</code></pre>
+                    </li>
+                </ol>
+
+            </div>
+        </details>
+    </div>
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+</body>
+</html>
