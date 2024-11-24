@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exception - Selenium</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+<body>
+    
+    <div class="details-container">
+        <div class="content">
+            <p>Selenium WebDriver can throw various exceptions during the execution of automation
+                scripts. Understanding these exceptions and their solutions is crucial for writing
+                robust and reliable test scripts. Here are some common Selenium Java exceptions and
+                their solutions:</p>
+            <ol>
+                <li>
+                    <p><strong>NoSuchElementException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when an element could not be
+                                found on the web page.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Ensure the locator used to find the
+                                element is correct and wait for the element to be present.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebDriverWait</span> wait <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebDriverWait</span><span class="token punctuation">(</span>driver<span class="token punctuation">,</span> <span class="token class-name">Duration</span><span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">WebElement</span> element <span class="token operator">=</span> wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span><span class="token class-name">ExpectedConditions</span><span class="token punctuation">.</span><span class="token function">presenceOfElementLocated</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>StaleElementReferenceException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when a reference to an element
+                                is no longer valid (e.g., the element has been refreshed or removed
+                                from the DOM).</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Re-acquire the element reference after the
+                                page updates or use explicit waits.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebElement</span> element <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+element<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Re-locate the element if necessary</span>
+element <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>TimeoutException</strong></p>
+                    <ul>
+                        <li><strong>Description</strong>: Thrown when a command does not complete in
+                            the specified timeout period.</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>ElementNotVisibleException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when an element is present in
+                                the DOM but not visible.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Ensure the element is visible before
+                                interacting with it or use waits to handle visibility.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebDriverWait</span> wait <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebDriverWait</span><span class="token punctuation">(</span>driver<span class="token punctuation">,</span> <span class="token class-name">Duration</span><span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">WebElement</span> element <span class="token operator">=</span> wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span><span class="token class-name">ExpectedConditions</span><span class="token punctuation">.</span><span class="token function">visibilityOfElementLocated</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>ElementNotInteractableException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when an element is not
+                                interactable (e.g., it is disabled or not visible).</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Wait for the element to become
+                                interactable or ensure it is in the correct state.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebDriverWait</span> wait <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebDriverWait</span><span class="token punctuation">(</span>driver<span class="token punctuation">,</span> <span class="token class-name">Duration</span><span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">WebElement</span> element <span class="token operator">=</span> wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span><span class="token class-name">ExpectedConditions</span><span class="token punctuation">.</span><span class="token function">elementToBeClickable</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>NoAlertPresentException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when switching to an alert but
+                                no alert is present.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Ensure an alert is present before
+                                switching to it.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebDriverWait</span> wait <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebDriverWait</span><span class="token punctuation">(</span>driver<span class="token punctuation">,</span> <span class="token class-name">Duration</span><span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span><span class="token class-name">ExpectedConditions</span><span class="token punctuation">.</span><span class="token function">alertIsPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Alert</span> alert <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">switchTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+alert<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>InvalidSelectorException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when an invalid selector is
+                                used.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Verify the correctness of the selector
+                                syntax.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebElement</span> element <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">cssSelector</span><span class="token punctuation">(</span><span class="token string">"valid-css-selector"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>WebDriverException</strong></p>
+                    <ul>
+                        <li><strong>Description</strong>: Generic exception thrown when something
+                            goes wrong with the WebDriver.</li>
+                        <li><strong>Solution</strong>: Investigate the root cause by checking the
+                            error message and stack trace. Ensure WebDriver and browser versions are
+                            compatible.</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>MoveTargetOutOfBoundsException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when the target for a mouse
+                                action is outside the view.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Scroll the element into view before
+                                performing the action.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebElement</span> element <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"elementId"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">JavascriptExecutor</span><span class="token punctuation">)</span> driver<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token string">"arguments[0].scrollIntoView(true);"</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>SessionNotFoundException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when the session ID is not found
+                                (e.g., when the session is terminated).</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Ensure the WebDriver session is properly
+                                initialized and not terminated prematurely.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebDriver</span> driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ChromeDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"&lt;https://www.example.com&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+driver<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>UnhandledAlertException</strong></p>
+                    <ul>
+                        <li>
+                            <p><strong>Description</strong>: Thrown when there is an unhandled alert
+                                on the web page.</p>
+                        </li>
+                        <li>
+                            <p><strong>Solution</strong>: Handle the alert before performing further
+                                actions.</p>
+                            <pre class="language-java" tabindex="0"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
+<span class="token class-name">Alert</span> alert <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">switchTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+alert<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoAlertPresentException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment">// No alert found, proceed with the test</span>
+<span class="token punctuation">}</span>
+</code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>InvalidElementStateException</strong></p>
+                    <ul>
+                        <li><strong>Description</strong>: Thrown when an element is in an invalid
+                            state for the action being performed (e.g., trying to send keys to a
+                            non-input element).</li>
+                        <li><strong>Solution</strong>: Ensure the element is in the correct state
+                            before performing the action.</li>
+                    </ul>
+                    <pre class="language-java" tabindex="0"><code class="language-java"><span class="token class-name">WebElement</span> element <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"inputElement"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+element<span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code>
+                    </pre>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+</html>
