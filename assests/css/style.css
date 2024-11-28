@@ -17,6 +17,7 @@
 /* home link */
 
 .home-link {
+    display:none;
     width: 100vw;
     padding: 0.5em 0;
     text-align: center;
